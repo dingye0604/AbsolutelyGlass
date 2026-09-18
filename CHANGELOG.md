@@ -29,4 +29,4 @@
 
 ## 1.0.0
 
-- Initial release. A derived theme built on ClaudeBaseline 1.0.0: the full base stylesheet, fonts, and note styles are preserved, with a glass material layer appended.
+- Initial release. A derived theme built on AbsolutelyBaseline 1.0.0: the full base stylesheet, fonts, and note styles are preserved, with a glass material layer appended.

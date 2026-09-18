@@ -7,12 +7,12 @@ const assert = require('assert/strict');
 const [modules, output, asarPath] = process.argv.slice(2);
 fs.mkdirSync(output, { recursive: true });
 const theme = fs.readFileSync(path.join(__dirname, 'theme.css'));
-const base = fs.readFileSync(path.join(__dirname, '../ClaudeBaseline/theme.css'));
+const base = fs.readFileSync(path.join(__dirname, '../AbsolutelyBaseline/theme.css'));
 assert(theme.subarray(0, base.length).equals(base), 'Base theme bytes changed');
-for (const file of ['manifest.json', '../../plugins/claudeapple-glass/manifest.json']) {
+for (const file of ['manifest.json', '../../plugins/absolutely-glass-acrylic/manifest.json']) {
   JSON.parse(fs.readFileSync(path.join(__dirname, file), 'utf8'));
 }
-const pluginSource = fs.readFileSync(path.join(__dirname, '../../plugins/claudeapple-glass/main.js'), 'utf8');
+const pluginSource = fs.readFileSync(path.join(__dirname, '../../plugins/absolutely-glass-acrylic/main.js'), 'utf8');
 const cases = [];
 function pluginCase(name, options = {}) {
   const classes = new Set();
@@ -87,7 +87,7 @@ const { chromium } = require(path.join(modules, 'playwright'));
     <body class="theme-dark mod-windows is-frameless"><div class="app-container"><div class="horizontal-main-container"><div class="workspace">
     <div class="workspace-split mod-left-split mod-sidedock"><div class="workspace-tabs"><div class="workspace-tab-header-container">文件</div><div class="workspace-tab-container"><div class="workspace-leaf"><div class="workspace-leaf-content" data-type="file-explorer"><div class="view-content"><div class="nav-files-container">
     <div class="nav-folder-title">Notebook</div><div class="nav-file-title">01 信号与系统</div><div class="nav-file-title is-active">02 山月记</div><div class="nav-file-title">03 研究与随笔</div></div></div></div></div></div></div></div>
-    <div class="workspace-split mod-root"><div class="workspace-tabs"><div class="workspace-tab-header-container"><div class="workspace-tab-header is-active">山月记</div></div><div class="workspace-tab-container"><div class="workspace-leaf"><div class="workspace-leaf-content" data-type="markdown"><div class="view-header">书房 / 山月记</div><div class="view-content"><div class="markdown-preview-view"><div class="markdown-preview-sizer"><h1>山月记</h1><p>窗外的颜色轻轻透过玻璃，文字仍保持清晰。</p><h2>留一层光，留一点安静</h2><p>这是 CLaudeApple 的浏览器样式验证页。沿用 ClaudeBaseline 的阅读排版，加入半透明材质、柔和边缘和细微高光。</p><blockquote>这是 CSS 验证夹具，不是 Obsidian 实机截图。真实桌面 Acrylic 须在应用内启用配套插件后确认。</blockquote><h2>信号与系统</h2><p>阅读、写作、推导，仍然是笔记的中心。</p><pre><code>y[n] = sum(x[k] * h[n-k])</code></pre><p><a href="#details">继续阅读</a> · <span class="tag">学习笔记</span></p><table><thead><tr><th>参数</th><th>默认值</th></tr></thead><tbody><tr><td>面板不透明度</td><td>0.64</td></tr><tr><td>模糊半径</td><td>24 px</td></tr></tbody></table></div></div></div></div></div></div></div></div>
+    <div class="workspace-split mod-root"><div class="workspace-tabs"><div class="workspace-tab-header-container"><div class="workspace-tab-header is-active">山月记</div></div><div class="workspace-tab-container"><div class="workspace-leaf"><div class="workspace-leaf-content" data-type="markdown"><div class="view-header">书房 / 山月记</div><div class="view-content"><div class="markdown-preview-view"><div class="markdown-preview-sizer"><h1>山月记</h1><p>窗外的颜色轻轻透过玻璃，文字仍保持清晰。</p><h2>留一层光，留一点安静</h2><p>这是 AbsolutelyGlass 的浏览器样式验证页。沿用 AbsolutelyBaseline 的阅读排版，加入半透明材质、柔和边缘和细微高光。</p><blockquote>这是 CSS 验证夹具，不是 Obsidian 实机截图。真实桌面 Acrylic 须在应用内启用配套插件后确认。</blockquote><h2>信号与系统</h2><p>阅读、写作、推导，仍然是笔记的中心。</p><pre><code>y[n] = sum(x[k] * h[n-k])</code></pre><p><a href="#details">继续阅读</a> · <span class="tag">学习笔记</span></p><table><thead><tr><th>参数</th><th>默认值</th></tr></thead><tbody><tr><td>面板不透明度</td><td>0.64</td></tr><tr><td>模糊半径</td><td>24 px</td></tr></tbody></table></div></div></div></div></div></div></div></div>
     <div class="workspace-split mod-right-split mod-sidedock"><div class="workspace-tabs"><div class="workspace-tab-header-container">大纲</div><div class="workspace-tab-container"><div class="workspace-leaf"><div class="workspace-leaf-content" data-type="outline"><div class="view-content"><h3>山月记</h3><p>留一层光，留一点安静</p><p>信号与系统</p><input aria-label="搜索" placeholder="搜索笔记"></div></div></div></div></div></div>
     </div></div></div></body></html>`;
     await page.setContent(fixture);
@@ -99,7 +99,7 @@ const { chromium } = require(path.join(modules, 'playwright'));
     for (const mode of ['dark', 'light']) {
       await page.evaluate(mode => { document.body.classList.remove('theme-dark', 'theme-light'); document.body.classList.add(`theme-${mode}`); }, mode);
       await page.waitForTimeout(900);
-      await page.screenshot({ animations: 'disabled', path: path.join(output, `CLaudeApple-${mode}.png`) });
+      await page.screenshot({ animations: 'disabled', path: path.join(output, `AbsolutelyGlass-${mode}.png`) });
       const result = await page.evaluate(() => {
         const panel = document.querySelector('.mod-root .workspace-leaf-content');
         const style = getComputedStyle(panel);
@@ -148,7 +148,7 @@ const { chromium } = require(path.join(modules, 'playwright'));
     });
     assert.equal(modal.blur, 'none'); assert.equal(modal.animation, 'none');
     assert.equal(modal.transform, 'none'); assert(modal.background.startsWith('rgb('));
-    await page.screenshot({ animations: 'disabled', path: path.join(output, 'CLaudeApple-settings.png') });
+    await page.screenshot({ animations: 'disabled', path: path.join(output, 'AbsolutelyGlass-settings.png') });
 
     // 1.13+: settings is a separate window; .modal is a direct body child.
     const popoutPage = await browser.newPage({ viewport: { width: 1100, height: 760 } });
@@ -175,7 +175,7 @@ const { chromium } = require(path.join(modules, 'playwright'));
       assert.equal(result.modalBlur, 'none'); assert.equal(result.modalAnimation, 'none');
       assert.equal(result.icon, 'visible'); assert(result.titlebarHeight > 0);
       popoutResults.push({ mode, ...result });
-      await popoutPage.screenshot({ animations: 'disabled', path: path.join(output, `CLaudeApple-settings-popout-${mode}.png`) });
+      await popoutPage.screenshot({ animations: 'disabled', path: path.join(output, `AbsolutelyGlass-settings-popout-${mode}.png`) });
     }
     await popoutPage.close();
 

@@ -1,4 +1,4 @@
-# CLaudeApple validation record
+# AbsolutelyGlass validation record
 
 **English** | [中文](./VALIDATION.zh-CN.md)
 
@@ -28,7 +28,7 @@ Validated 2026-09-18.
 ## 1.0.1 — Regression fixes
 
 - Computed styles for the tab `::before` / `::after` are both `content: none`; the inverted corner shapes at the bottom of tabs are gone. Light and dark browser screenshots were refreshed.
-- The settings modal uses a solid background; computed styles confirm `backdrop-filter: none`, `animation-name: none`, `transform: none`. Screenshot: `CLaudeApple-settings.png`.
+- The settings modal uses a solid background; computed styles confirm `backdrop-filter: none`, `animation-name: none`, `transform: none`. Screenshot: `AbsolutelyGlass-settings.png`.
 - Reproduced the old notification loop — repeatedly removing a class that is not present — in a real browser DOM with a `MutationObserver`, and cut it off deliberately at the 24th callback.
 - Ran six theme round-trips with the complete new plugin code against a real DOM, emitting 40 `css-change` events each time: 14 syncs in total, 7 Acrylic applications and 7 restores, 0 extra syncs once settled, 0 syncs after unload, no leftover material marker.
 - The Electron window interface is still mocked. No claim is made that the Obsidian freeze or the Windows top-edge rendering problem is fully eliminated on-device.
@@ -37,12 +37,12 @@ Validated 2026-09-18.
 
 ## Completed
 
-- `build.ps1` regenerates `theme.css`; its leading 637,125 bytes are byte-identical to the current `ClaudeBaseline/theme.css`. Updated 2026-09-18 after the base was trimmed — the earlier figure was 640,976.
+- `build.ps1` regenerates `theme.css`; its leading 637,125 bytes are byte-identical to the current `AbsolutelyBaseline/theme.css`. Updated 2026-09-18 after the base was trimmed — the earlier figure was 640,976.
 - Both manifests parse as JSON; the companion plugin passes `node --check`.
 - Using the machine's existing Playwright and Edge, the full derived theme was loaded over the `app.css` read from the local Obsidian installation and rendered against a three-pane DOM fixture. Light and dark screenshots were inspected.
 - Computed styles confirm: panel alpha 0.64, blur `blur(24px) saturate(1.25)`, 16 px radius, transparent note container; window CSS alpha 0.12 with the native marker set; panel alpha 1 in solid mode.
 - Seven mocked plugin checks pass: restore on theme switch, restore on unload, restore in solid mode, rollback when the Acrylic API throws, fallback on older Windows, fallback on non-Windows, and no material under the reduced-transparency preference.
-- ClaudeBaseline, the notes, the current theme selection, and the enabled third-party plugins were not modified.
+- AbsolutelyBaseline, the notes, the current theme selection, and the enabled third-party plugins were not modified.
 
 ## Not verified / limitations
 
@@ -56,12 +56,12 @@ Validated 2026-09-18.
 Run from the vault root in PowerShell:
 
 ```powershell
-& .obsidian\themes\CLaudeApple\build.ps1
-node --check .obsidian\plugins\claudeapple-glass\main.js
-node .obsidian\themes\CLaudeApple\verify.cjs `
+& .obsidian\themes\AbsolutelyGlass\build.ps1
+node --check .obsidian\plugins\absolutely-glass-acrylic\main.js
+node .obsidian\themes\AbsolutelyGlass\verify.cjs `
   'C:\Users\CDL\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules' `
   'D:\obsidianPlugin\.verify-out' `
   'C:\Users\CDL\AppData\Roaming\obsidian\obsidian-1.13.7.asar'
 ```
 
-Screenshots and the machine-readable result land in the output directory: `CLaudeApple-dark.png`, `CLaudeApple-light.png`, `validation.json`. On another machine, replace the runtime, output directory, and Obsidian installation paths.
+Screenshots and the machine-readable result land in the output directory: `AbsolutelyGlass-dark.png`, `AbsolutelyGlass-light.png`, `validation.json`. On another machine, replace the runtime, output directory, and Obsidian installation paths.

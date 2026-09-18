@@ -1,9 +1,9 @@
-/* CLaudeApple glass layer v1.0.4
+/* AbsolutelyGlass glass layer v1.0.4
  * Web approximation of glass, not Apple's native Liquid Glass renderer.
- * Original ClaudeBaseline is retained verbatim before this layer in theme.css.
+ * Original AbsolutelyBaseline is retained verbatim before this layer in theme.css.
  */
 /* @settings
-name: CLaudeApple · 玻璃材质
+name: AbsolutelyGlass · 玻璃材质
 id: claudeapple
 settings:
   - id: ca-panel-opacity
