@@ -19,11 +19,11 @@ Validated 2026-09-18.
 ## 1.0.2 — Settings pop-out window fix
 
 - User feedback: 1.0.1 fixed the theme-switch freeze, but the dark bar at the top of settings remained.
-- Read `app.js` / `app.css` from the running build, `C:\Users\CDL\AppData\Roaming\obsidian\obsidian-1.13.7.asar`, and confirmed the separate settings window uses `body.is-popout-modal > .modal` with its own `.titlebar`. Earlier validation had used the 1.12.7 installer, whose plain modal-container fixture misses that structure.
+- Read `app.js` / `app.css` from the running build, `%APPDATA%\obsidian\obsidian-1.13.7.asar`, and confirmed the separate settings window uses `body.is-popout-modal > .modal` with its own `.titlebar`. Earlier validation had used the 1.12.7 installer, whose plain modal-container fixture misses that structure.
 - Scoped to that context: solid window, solid title bar, direct child modal with no blur, and Obsidian's own window-control SVG restored. The plugin was not modified.
 - Re-ran the full regression against 1.13.7 `app.css` and added light and dark checks for the separate settings window: title bar, body, and modal backgrounds match (light `rgb(245,242,236)`, dark `rgb(39,40,36)`), title bar height 30 px, close icon visible, modal blur and animation both `none`.
 - The light-mode settings screenshot was inspected. This still does not amount to verifying composition in a real Electron pop-out window.
-- The third argument of the current command is `C:\Users\CDL\AppData\Roaming\obsidian\obsidian-1.13.7.asar`; the installer path in the historical record below is no longer used.
+- The third argument of the current command is `%APPDATA%\obsidian\obsidian-1.13.7.asar`; the installer path in the historical record below is no longer used.
 
 ## 1.0.1 — Regression fixes
 
@@ -59,9 +59,9 @@ Run from the vault root in PowerShell:
 & .obsidian\themes\AbsolutelyGlass\build.ps1
 node --check .obsidian\plugins\absolutely-glass-acrylic\main.js
 node .obsidian\themes\AbsolutelyGlass\verify.cjs `
-  'C:\Users\CDL\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules' `
+  '%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules' `
   'D:\obsidianPlugin\.verify-out' `
-  'C:\Users\CDL\AppData\Roaming\obsidian\obsidian-1.13.7.asar'
+  '%APPDATA%\obsidian\obsidian-1.13.7.asar'
 ```
 
 Screenshots and the machine-readable result land in the output directory: `AbsolutelyGlass-dark.png`, `AbsolutelyGlass-light.png`, `validation.json`. On another machine, replace the runtime, output directory, and Obsidian installation paths.

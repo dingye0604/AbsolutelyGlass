@@ -19,11 +19,11 @@
 ## 1.0.2 设置独立窗口修正
 
 - 用户反馈 1.0.1 已解决主题切换卡死，但设置顶部深色横栏仍存在。
-- 读取当前运行版本 `C:\Users\CDL\AppData\Roaming\obsidian\obsidian-1.13.7.asar` 的 app.js/app.css，确认独立设置窗口使用 `body.is-popout-modal > .modal` 与独立 `.titlebar`。此前验证使用安装包 1.12.7，普通 modal-container 夹具漏掉了此结构。
+- 读取当前运行版本 `%APPDATA%\obsidian\obsidian-1.13.7.asar` 的 app.js/app.css，确认独立设置窗口使用 `body.is-popout-modal > .modal` 与独立 `.titlebar`。此前验证使用安装包 1.12.7，普通 modal-container 夹具漏掉了此结构。
 - 对此作用域设置实色窗口、实色标题栏、无模糊的直接子 modal，恢复 Obsidian 自带窗口控制 SVG；未修改插件。
 - 改用 1.13.7 app.css 完成全部回归，并增加深浅色独立设置窗口检查：标题栏/body/modal 三者背景一致（浅色 rgb(245,242,236)，深色 rgb(39,40,36)），标题栏高度 30 px，关闭图标可见，modal 模糊与动画均 none。
 - 已检查独立设置页浅色截图；仍不等于实际 Electron 独立窗口的合成验证。
-- 最新验证命令的第三个参数使用 `C:\Users\CDL\AppData\Roaming\obsidian\obsidian-1.13.7.asar`，不再使用下方历史记录中的安装包路径。
+- 最新验证命令的第三个参数使用 `%APPDATA%\obsidian\obsidian-1.13.7.asar`，不再使用下方历史记录中的安装包路径。
 
 ## 1.0.1 修复回归
 
@@ -59,9 +59,9 @@
 & .obsidian\themes\AbsolutelyGlass\build.ps1
 node --check .obsidian\plugins\absolutely-glass-acrylic\main.js
 node .obsidian\themes\AbsolutelyGlass\verify.cjs `
-  'C:\Users\CDL\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules' `
+  '%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules' `
   'D:\obsidianPlugin\.verify-out' `
-  'C:\Users\CDL\AppData\Roaming\obsidian\obsidian-1.13.7.asar'
+  '%APPDATA%\obsidian\obsidian-1.13.7.asar'
 ```
 
 截图及机器可读结果位于上述输出目录：`AbsolutelyGlass-dark.png`、`AbsolutelyGlass-light.png`、`validation.json`。其他电脑需要替换运行时、输出目录和 Obsidian 安装路径。
