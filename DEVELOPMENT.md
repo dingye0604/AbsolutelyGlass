@@ -5,7 +5,7 @@
 `theme.css` — the file Obsidian actually loads — is a build artifact. It is two files concatenated:
 
 ```
-ClaudeBaseline/theme.css  +  "\n\n"  +  glass.css   →   theme.css
+AbsolutelyBaseline/theme.css  +  "\n\n"  +  glass.css   →   theme.css
 ```
 
 `build.ps1` does the concatenation byte-for-byte.
@@ -14,7 +14,7 @@ ClaudeBaseline/theme.css  +  "\n\n"  +  glass.css   →   theme.css
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
 
-The consequence worth knowing: **`ClaudeBaseline/theme.css` is a byte prefix of `theme.css`.** Change the base and you change this theme too; rebuild or the two drift apart silently. `verify.cjs` asserts the prefix holds.
+The consequence worth knowing: **`AbsolutelyBaseline/theme.css` is a byte prefix of `theme.css`.** Change the base and you change this theme too; rebuild or the two drift apart silently. `verify.cjs` asserts the prefix holds.
 
 Never edit `theme.css` by hand — the next build overwrites it.
 
@@ -28,7 +28,7 @@ Never edit `theme.css` by hand — the next build overwrites it.
 
 ## Interface with the companion plugin
 
-Three names are a contract between this theme and `claudeapple-glass`. Changing either side without the other breaks the plugin silently, and `verify.cjs` will fail.
+Three names are a contract between this theme and `absolutely-glass-acrylic`. Changing either side without the other breaks the plugin silently, and `verify.cjs` will fail.
 
 | Name | Defined in | Read by |
 |---|---|---|
@@ -43,7 +43,7 @@ node --check .\main.js   # the companion plugin
 node .\verify.cjs <playwright-node_modules> <output-dir> <obsidian.asar>
 ```
 
-Run `verify.cjs` **from inside an installed vault** (`.obsidian/themes/CLaudeApple/`). It resolves `../ClaudeBaseline/theme.css` and `../../plugins/claudeapple-glass/main.js` relative to itself, so those paths only exist in a vault layout.
+Run `verify.cjs` **from inside an installed vault** (`.obsidian/themes/AbsolutelyGlass/`). It resolves `../AbsolutelyBaseline/theme.css` and `../../plugins/absolutely-glass-acrylic/main.js` relative to itself, so those paths only exist in a vault layout.
 
 What it covers:
 

@@ -1,5 +1,5 @@
 $ErrorActionPreference = 'Stop'
-$sourcePath = Join-Path (Split-Path $PSScriptRoot -Parent) 'ClaudeBaseline\theme.css'
+$sourcePath = Join-Path (Split-Path $PSScriptRoot -Parent) 'AbsolutelyBaseline\theme.css'
 $overlayPath = Join-Path $PSScriptRoot 'glass.css'
 $targetPath = Join-Path $PSScriptRoot 'theme.css'
 $sourceBytes = [IO.File]::ReadAllBytes($sourcePath)

@@ -1,4 +1,4 @@
-# CLaudeApple 验证记录
+# AbsolutelyGlass 验证记录
 
 [English](./VALIDATION.md) | **中文**
 
@@ -28,7 +28,7 @@
 ## 1.0.1 修复回归
 
 - 标签页 `::before` / `::after` 的计算样式均为 `content: none`，移除底部两侧反向圆角；深浅色浏览器截图已更新。
-- 设置弹窗使用实色背景，计算样式确认 `backdrop-filter: none`、`animation-name: none`、`transform: none`，截图为 `CLaudeApple-settings.png`。
+- 设置弹窗使用实色背景，计算样式确认 `backdrop-filter: none`、`animation-name: none`、`transform: none`，截图为 `AbsolutelyGlass-settings.png`。
 - 在真实浏览器 DOM / MutationObserver 中复现旧版对不存在 class 反复 remove 导致的通知循环，在第 24 次主动截断。
 - 用新版完整插件代码和真实 DOM 运行六轮主题往返，每次发出 40 个 `css-change` 事件：共 14 次同步、7 次 Acrylic 设置和 7 次恢复，稳定后额外同步 0 次，卸载后同步 0 次，未残留材质标记。
 - Electron 窗口接口仍为模拟接口；未声称 Obsidian 实机卡死或 Windows 顶部绘制异常已全部消除。
@@ -37,12 +37,12 @@
 
 ## 已完成
 
-- `build.ps1` 成功生成 `theme.css`；开头 637,125 字节与当前 ClaudeBaseline 的 `theme.css` 逐字节相同。（2026-09-18 更新：基础主题被裁短后重新构建；此前的数字是 640,976。）
+- `build.ps1` 成功生成 `theme.css`；开头 637,125 字节与当前 AbsolutelyBaseline 的 `theme.css` 逐字节相同。（2026-09-18 更新：基础主题被裁短后重新构建；此前的数字是 640,976。）
 - 主题及插件 manifest JSON 均可解析；配套插件通过 `node --check`。
 - 使用本机已有 Playwright 与 Edge，在从本机 Obsidian 安装包读取的 `app.css` 上加载完整派生主题，渲染三栏 DOM 验证夹具；深色、浅色截图均已查看。
 - 浏览器计算样式确认：面板 alpha=0.64、磨砂 `blur(24px) saturate(1.25)`、圆角 16 px、正文容器透明；原生标记启用后窗口 CSS alpha=0.12；不透明模式面板 alpha=1。
 - 插件七项模拟检查通过：主题切换恢复、卸载恢复、不透明模式恢复、Acrylic 接口异常回退、旧版 Windows 回退、非 Windows 回退、减少透明效果模式不启用材质。
-- 未修改 ClaudeBaseline、笔记、当前主题选择和第三方插件启用列表。
+- 未修改 AbsolutelyBaseline、笔记、当前主题选择和第三方插件启用列表。
 
 ## 未验证与限制
 
@@ -56,12 +56,12 @@
 在知识库根目录用 PowerShell 执行：
 
 ```powershell
-& .obsidian\themes\CLaudeApple\build.ps1
-node --check .obsidian\plugins\claudeapple-glass\main.js
-node .obsidian\themes\CLaudeApple\verify.cjs `
+& .obsidian\themes\AbsolutelyGlass\build.ps1
+node --check .obsidian\plugins\absolutely-glass-acrylic\main.js
+node .obsidian\themes\AbsolutelyGlass\verify.cjs `
   'C:\Users\CDL\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules' `
   'D:\obsidianPlugin\.verify-out' `
   'C:\Users\CDL\AppData\Roaming\obsidian\obsidian-1.13.7.asar'
 ```
 
-截图及机器可读结果位于上述输出目录：`CLaudeApple-dark.png`、`CLaudeApple-light.png`、`validation.json`。其他电脑需要替换运行时、输出目录和 Obsidian 安装路径。
+截图及机器可读结果位于上述输出目录：`AbsolutelyGlass-dark.png`、`AbsolutelyGlass-light.png`、`validation.json`。其他电脑需要替换运行时、输出目录和 Obsidian 安装路径。
