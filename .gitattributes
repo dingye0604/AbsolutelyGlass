@@ -1,0 +1,3 @@
+# verify.cjs asserts byte offsets inside theme.css, and build.ps1 concatenates
+# raw bytes. Any end-of-line translation would break both. Never rewrite these.
+* -text
