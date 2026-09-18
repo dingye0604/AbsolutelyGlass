@@ -2,108 +2,81 @@
 
 **English** | [中文](./README.zh-CN.md)
 
-A warm, glass-panelled Obsidian theme. AbsolutelyGlass keeps the layout, components, and motion of [AbsolutelyBaseline](https://github.com/dingye0604/AbsolutelyBaseline) and adds a semi-transparent frosted layer — and on Windows 11, an optional companion plugin lets the real desktop show through.
+A warm Obsidian theme with frosted glass panels. Your notes rest on a soft, translucent surface instead of a flat slab of colour.
 
 | Light | Dark |
 | :---: | :---: |
 | [![AbsolutelyGlass in light mode](./screenshot-light.jpg)](./Fig1.jpg) | [![AbsolutelyGlass in dark mode](./screenshot-dark.jpg)](./Fig2.jpg) |
 
-*Click a screenshot to view it full size.*
+*Click either screenshot to open it full size.*
 
-## What you get
+## Install
 
-AbsolutelyGlass is the third layer in a chain:
+**From Obsidian** — Settings → Appearance → Themes → Manage, search for **AbsolutelyGlass**, then **Install and use**.
 
-```
-Baseline            community theme by aaaa-alexis (MIT)
-  └─ AbsolutelyBaseline baseline layout, warm Claude-inspired palette and typography
-       └─ AbsolutelyGlass glass panels, ambient tint, translucent window
-```
+**By hand** — download `manifest.json` and `theme.css` from the [latest release](https://github.com/dingye0604/AbsolutelyGlass/releases/latest), put both in `<your-vault>/.obsidian/themes/AbsolutelyGlass/`, and reload Obsidian.
 
-Everything below the glass is AbsolutelyBaseline. AbsolutelyGlass only appends a material layer on top — it does not fork or replace the base styling.
+## Seeing your desktop through the glass (Windows 11)
 
-Two levels of effect, and you choose which:
+Out of the box the panels blur the theme's own background, so what shows through them is colour, not your wallpaper. It still reads as frosted — it just isn't your desktop.
 
-- **Theme only.** Warm neutral surfaces plus CSS frosted panels drawn by the theme itself. Works on every platform. The desktop does **not** show through — the blur has nothing but the theme's own background behind it.
-- **Theme + companion plugin.** On Windows 11 22H2 or newer, the optional [AbsolutelyGlass Acrylic](https://github.com/dingye0604/absolutely-glass-acrylic) plugin asks Electron for a native Acrylic backdrop, so your actual desktop shows through the window.
+To put your actual desktop behind the window, install the companion plugin:
 
-The second is a genuine desktop material. It is **not** Apple's Liquid Glass, and there is no dynamic refraction.
+**[AbsolutelyGlass Acrylic](https://github.com/dingye0604/absolutely-glass-acrylic)** — Windows 11 22H2 or newer, desktop app only.
 
-## Installation
+It's optional. If you just want a softer look, the theme on its own is enough. Don't run it alongside another Mica or Acrylic window plugin — they fight over the same window setting.
 
-### From the community theme browser
+Worth setting expectations: this is Windows' own Acrylic material, the same one behind the Start menu. It is **not** Apple's Liquid Glass, and nothing refracts or moves.
 
-1. **Settings → Appearance → Themes → Manage**
-2. Search for **AbsolutelyGlass**
-3. **Install and use**
+## Adjusting the glass
 
-### Manually
+Install [Style Settings](https://github.com/mgmeyers/obsidian-style-settings), then open **AbsolutelyGlass · Glass material**:
 
-1. Download `manifest.json` and `theme.css` from the [latest release](https://github.com/dingye0604/AbsolutelyGlass/releases/latest)
-2. Create a folder named `AbsolutelyGlass` inside `<your-vault>/.obsidian/themes/`
-3. Put both files in that folder
-4. Reload Obsidian, then pick **AbsolutelyGlass** in **Settings → Appearance → Themes**
-
-### Optional: native Acrylic on Windows 11
-
-Install the [AbsolutelyGlass Acrylic](https://github.com/dingye0604/absolutely-glass-acrylic) plugin and enable it. Nothing else is required — the plugin finds the theme on its own.
-
-The plugin manages the main window only. Do not run it alongside another Mica/Acrylic window plugin.
-
-## Settings
-
-With [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) installed, **AbsolutelyGlass · Glass material** exposes:
-
-| Setting | Default | Notes |
+| Setting | Default | When you'd change it |
 |---|---|---|
-| Panel opacity | `0.64` | Raise it when text sits over a busy desktop |
-| Window tint | `0.12` | The color the window falls back to behind the glass |
-| Blur radius | `24 px` | Lower it on machines that feel sluggish |
-| Corner radius | `16 px` | Panel corners |
+| Panel opacity | 0.64 | Raise it when text is hard to read over a busy desktop |
+| Window tint | 0.12 | The colour sitting behind the glass |
+| Blur radius | 24 px | Lower it if scrolling feels sluggish |
+| Corner radius | 16 px | Panel corners |
 
-Both light and dark are supported and tuned separately. There is also a **High readability · solid mode** preset that drops the glass entirely — use it when you want the layout without any transparency.
+Light and dark are tuned separately. There is also **High readability · solid mode**, which removes transparency completely — handy on battery, or when you want the layout without the glass.
 
-Everything else in the Style Settings panel comes from AbsolutelyBaseline and still works. AbsolutelyGlass's material overrides take priority over some of Baseline's background and border options.
+Everything else in the Style Settings panel comes from the base theme and works as before.
 
-## Requirements
+## What you need
 
-- Obsidian **1.13.4** or newer
-- **Native Acrylic** additionally needs Windows 11 22H2 (build 22621+) and an Obsidian installer that exposes Electron's window material API
-- macOS, Linux, and mobile get the theme's CSS glass; the plugin is desktop Windows only and stays inactive elsewhere
+- **Obsidian 1.13.4** or newer.
+- The plugin additionally needs **Windows 11 22H2 (build 22621+)** and a recent Obsidian installer. On macOS, Linux and mobile you still get the theme's frosted panels; the plugin simply stays off.
 
-Windows decides on its own when to honor Acrylic. Transparency effects turned off system-wide, power saving, Remote Desktop, or a graphics driver fallback can all force an opaque window — the theme cannot override those policies. Material changes on focus loss are managed by Windows.
+Windows decides for itself whether to allow Acrylic. If your window stays opaque, check **Settings → Accessibility → Visual effects → Transparency effects**. Power saving, Remote Desktop, and some graphics drivers force it off too, and the theme can't override any of that.
 
-## Troubleshooting
+## If something looks wrong
 
-**The desktop doesn't show through.** The plugin is not active. Check that it is enabled, that you are on Windows 11 22H2 or newer, and that Settings → Accessibility → Visual effects → Transparency effects is on. Run **AbsolutelyGlass Acrylic: Reapply Acrylic backdrop** from the command palette to retry.
+**My desktop doesn't show through.** The plugin isn't running. Check that it's enabled and that you're on Windows 11 22H2 or newer. You can also run **AbsolutelyGlass Acrylic: Reapply Acrylic backdrop** from the command palette to retry.
 
-**The theme changed but Obsidian kept the old look.** CSS reloads immediately, but plugin code does not. Save your notes and restart Obsidian completely.
+**I changed the theme but Obsidian looks the same.** Save your notes and restart Obsidian completely — reloading the CSS doesn't replace plugin code that's already in memory.
 
-**Text is hard to read over a busy wallpaper.** Raise panel opacity, or switch on solid mode.
+**Text is hard to read against my wallpaper.** Raise panel opacity, or switch on solid mode.
 
-**Switching back.** Choose AbsolutelyBaseline (or any other theme) — the plugin notices the theme is gone and restores the window. Disabling the plugin also restores the original window background color and removes its CSS marker. It does not touch any Windows setting.
+**How do I go back?** Pick any other theme. The plugin notices and restores your window; disabling it does the same.
 
 ## Credits
 
-AbsolutelyGlass is a derivative work and most of what you see is other people's work.
+AbsolutelyGlass is built on other people's work, and most of what you see isn't ours.
 
-- **[Baseline](https://github.com/aaaaalexis/obsidian-baseline)** by [aaaaalexis](https://github.com/aaaaalexis) — MIT. All layout, component, and motion code. Baseline in turn credits the community themes it drew from; see its repository for the authoritative list.
-- **[AbsolutelyBaseline](https://github.com/dingye0604/AbsolutelyBaseline)** — the direct base of this theme. Its palette and typography are inherited unchanged.
-- **Instrument Serif** — Copyright 2022 The Instrument Serif Project Authors, designed by Rodrigo Fuenzalida and Jordan Egstad. SIL Open Font License 1.1. Embedded in `theme.css` as a base64 WOFF2.
-- **Inter** — by Rasmus Andersson, SIL Open Font License 1.1. Referenced by name only; it ships with Obsidian.
+- **[AbsolutelyBaseline](https://github.com/dingye0604/AbsolutelyBaseline)** — the theme this one extends, with its palette and typography unchanged.
+- **[Baseline](https://github.com/aaaaalexis/obsidian-baseline)** by [aaaaalexis](https://github.com/aaaaalexis) — MIT. Every layout, component and animation you see. If you like how this theme *behaves*, that's Baseline's doing.
+- **Instrument Serif** — Copyright 2022 The Instrument Serif Project Authors, by Rodrigo Fuenzalida and Jordan Egstad. SIL Open Font License 1.1, bundled inside `theme.css`.
+- **Inter** — by Rasmus Andersson, SIL Open Font License 1.1. Referenced by name; it ships with Obsidian.
 
-The palette and typography direction are inspired by **Claude**, Anthropic's AI assistant.
+The palette and typography take their direction from **Claude**, Anthropic's AI assistant.
 
-### Disclaimer
-
-This is an independent, community-made theme. It is **not affiliated with, sponsored by, or endorsed by Anthropic**. "Claude" is a trademark of Anthropic PBC, referenced here only to describe the visual style this theme draws on.
+AbsolutelyGlass is an independent community theme. It is **not affiliated with, sponsored by, or endorsed by Anthropic**. "Claude" is a trademark of Anthropic PBC, referenced here only to describe the visual style this theme draws on.
 
 ## License
 
-[MIT](./LICENSE) © the AbsolutelyGlass authors, incorporating AbsolutelyBaseline and Baseline © 2025 aaaa​alexis.
+[MIT](./LICENSE) © 2026 dingye0604, incorporating AbsolutelyBaseline and Baseline © 2025 aaaa​alexis. Bundled and referenced fonts are licensed separately under the SIL Open Font License 1.1.
 
-Bundled and referenced fonts are licensed separately under the SIL Open Font License 1.1 — see [Credits](#credits).
+---
 
-## For developers
-
-`theme.css` is a build artifact: `AbsolutelyBaseline/theme.css` followed by `glass.css`. Edit `glass.css`, then rebuild. See [DEVELOPMENT.md](./DEVELOPMENT.md), and [VALIDATION.md](./VALIDATION.md) for what has and has not been verified.
+Building from source, or want to know exactly what has and hasn't been tested? See [DEVELOPMENT.md](./DEVELOPMENT.md) and [VALIDATION.md](./VALIDATION.md).
