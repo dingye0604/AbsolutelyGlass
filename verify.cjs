@@ -87,14 +87,14 @@ const { chromium } = require(path.join(modules, 'playwright'));
     <body class="theme-dark mod-windows is-frameless"><div class="app-container"><div class="horizontal-main-container"><div class="workspace">
     <div class="workspace-split mod-left-split mod-sidedock"><div class="workspace-tabs"><div class="workspace-tab-header-container">文件</div><div class="workspace-tab-container"><div class="workspace-leaf"><div class="workspace-leaf-content" data-type="file-explorer"><div class="view-content"><div class="nav-files-container">
     <div class="nav-folder-title">Notebook</div><div class="nav-file-title">01 信号与系统</div><div class="nav-file-title is-active">02 山月记</div><div class="nav-file-title">03 研究与随笔</div></div></div></div></div></div></div></div>
-    <div class="workspace-split mod-root"><div class="workspace-tabs"><div class="workspace-tab-header-container"><div class="workspace-tab-header is-active">山月记</div></div><div class="workspace-tab-container"><div class="workspace-leaf"><div class="workspace-leaf-content" data-type="markdown"><div class="view-header">书房 / 山月记</div><div class="view-content"><div class="markdown-preview-view"><div class="markdown-preview-sizer"><h1>山月记</h1><p>窗外的颜色轻轻透过玻璃，文字仍保持清晰。</p><h2>留一层光，留一点安静</h2><p>这是 AbsolutelyGlass 的浏览器样式验证页。沿用 AbsolutelyBaseline 的阅读排版，加入半透明材质、柔和边缘和细微高光。</p><blockquote>这是 CSS 验证夹具，不是 Obsidian 实机截图。真实桌面 Acrylic 须在应用内启用配套插件后确认。</blockquote><h2>信号与系统</h2><p>阅读、写作、推导，仍然是笔记的中心。</p><pre><code>y[n] = sum(x[k] * h[n-k])</code></pre><p><a href="#details">继续阅读</a> · <span class="tag">学习笔记</span></p><table><thead><tr><th>参数</th><th>默认值</th></tr></thead><tbody><tr><td>面板不透明度</td><td>0.64</td></tr><tr><td>模糊半径</td><td>24 px</td></tr></tbody></table></div></div></div></div></div></div></div></div>
+    <div class="workspace-split mod-root"><div class="workspace-tabs"><div class="workspace-tab-header-container"><div class="workspace-tab-header-container-inner"><div class="workspace-tab-header is-active"><div class="workspace-tab-header-inner"><div class="workspace-tab-header-inner-title">山月记</div><div class="workspace-tab-header-inner-close-button">×</div></div></div><div class="workspace-tab-header"><div class="workspace-tab-header-inner"><div class="workspace-tab-header-inner-title">DeepNorm</div></div></div></div></div><div class="workspace-tab-container"><div class="workspace-leaf"><div class="workspace-leaf-content" data-type="markdown"><div class="view-header">书房 / 山月记</div><div class="view-content"><div class="markdown-preview-view"><div class="markdown-preview-sizer"><h1>山月记</h1><p>窗外的颜色轻轻透过玻璃，文字仍保持清晰。</p><h2>留一层光，留一点安静</h2><p>这是 AbsolutelyGlass 的浏览器样式验证页。沿用 AbsolutelyBaseline 的阅读排版，加入半透明材质、柔和边缘和细微高光。</p><blockquote>这是 CSS 验证夹具，不是 Obsidian 实机截图。真实桌面 Acrylic 须在应用内启用配套插件后确认。</blockquote><h2>信号与系统</h2><p>阅读、写作、推导，仍然是笔记的中心。</p><pre><code>y[n] = sum(x[k] * h[n-k])</code></pre><p><a href="#details">继续阅读</a> · <span class="tag">学习笔记</span></p><table><thead><tr><th>参数</th><th>默认值</th></tr></thead><tbody><tr><td>面板不透明度</td><td>0.64</td></tr><tr><td>模糊半径</td><td>24 px</td></tr></tbody></table></div></div></div></div></div></div></div></div>
     <div class="workspace-split mod-right-split mod-sidedock"><div class="workspace-tabs"><div class="workspace-tab-header-container">大纲</div><div class="workspace-tab-container"><div class="workspace-leaf"><div class="workspace-leaf-content" data-type="outline"><div class="view-content"><h3>山月记</h3><p>留一层光，留一点安静</p><p>信号与系统</p><input aria-label="搜索" placeholder="搜索笔记"></div></div></div></div></div></div>
     </div></div></div></body></html>`;
     await page.setContent(fixture);
     await page.addStyleTag({ content: appCss });
     await page.addStyleTag({ content: theme.toString() });
     // The fixture supplies only window dimensions and dock widths; theme draws surfaces.
-    await page.addStyleTag({ content: 'body{color:var(--text-normal)}.app-container{position:fixed;inset:0;display:flex;align-items:stretch!important}.horizontal-main-container{display:flex;flex:1}.workspace>.mod-left-split{width:240px!important;flex:0 0 240px!important}.workspace>.mod-right-split{width:260px!important;flex:0 0 260px!important}.workspace>.mod-root{width:auto!important;min-width:0;flex:1 1 0!important}.workspace-split>.workspace-tabs{width:100%;flex:1}.workspace-tab-container{width:100%;flex:1}.workspace-tab-container>.workspace-leaf{width:100%;flex:1}.workspace-leaf-content{display:flex;flex-direction:column}.view-content{flex:1;min-height:0}.horizontal-main-container,.workspace{width:100%;height:100%}.workspace{display:flex}.mod-left-split{width:240px;flex:none}.mod-right-split{width:260px;flex:none}.mod-root{flex:1}.workspace-tabs,.workspace-tab-container,.workspace-leaf{height:100%;min-height:0}.workspace-tab-header-container{min-height:42px;padding:10px}.markdown-preview-sizer{padding:24px}.workspace-leaf-content[data-type=outline] .view-content{padding:18px}.nav-file-title,.nav-folder-title{padding:10px}' });
+    await page.addStyleTag({ content: 'body{color:var(--text-normal)}.app-container{position:fixed;inset:0;display:flex;align-items:stretch!important}.horizontal-main-container{display:flex;flex:1}.workspace>.mod-left-split{width:240px!important;flex:0 0 240px!important}.workspace>.mod-right-split{width:260px!important;flex:0 0 260px!important}.workspace>.mod-root{width:auto!important;min-width:0;flex:1 1 0!important}.workspace-split>.workspace-tabs{width:100%;flex:1}.workspace-tab-container{width:100%;flex:1}.workspace-tab-container>.workspace-leaf{width:100%;flex:1}.workspace-leaf-content{display:flex;flex-direction:column}.view-content{flex:1;min-height:0}.horizontal-main-container,.workspace{width:100%;height:100%}.workspace{display:flex}.mod-left-split{width:240px;flex:none}.mod-right-split{width:260px;flex:none}.mod-root{flex:1}.workspace-tabs,.workspace-tab-container,.workspace-leaf{height:100%;min-height:0}.workspace-tab-header-container{min-height:42px}.markdown-preview-sizer{padding:24px}.workspace-leaf-content[data-type=outline] .view-content{padding:18px}.nav-file-title,.nav-folder-title{padding:10px}' });
     const results = [];
     for (const mode of ['dark', 'light']) {
       await page.evaluate(mode => { document.body.classList.remove('theme-dark', 'theme-light'); document.body.classList.add(`theme-${mode}`); }, mode);
@@ -108,13 +108,69 @@ const { chromium } = require(path.join(modules, 'playwright'));
           marker: getComputedStyle(document.body).getPropertyValue('--claudeapple-theme').trim() };
       });
       assert.equal(result.marker, '1'); assert(result.blur.includes('24px'));
-      assert.equal(result.radius, '16px'); assert.equal(result.editor, 'rgba(0, 0, 0, 0)');
+      assert.equal(result.radius, '0px 0px 16px 16px'); assert.equal(result.editor, 'rgba(0, 0, 0, 0)');
       assert(result.background.includes('0.64'));
       const corners = await page.evaluate(() => {
-        const tab = document.querySelector('.mod-root .workspace-tab-header');
+        const tab = document.querySelector('.mod-root .workspace-tab-header.is-active');
         return ['::before', '::after'].map(pseudo => getComputedStyle(tab, pseudo).content);
       });
-      assert.deepEqual(corners, ['none', 'none']);
+      assert.deepEqual(corners, ['""', 'none']);
+      for (const focused of [false, true]) {
+        await page.evaluate(value => {
+          document.body.classList.toggle('is-focused', value);
+          document.querySelector('.mod-root .workspace-tabs').classList.toggle('mod-active', value);
+        }, focused);
+        for (const selected of [0, 1]) {
+          await page.evaluate(index => {
+            document.querySelectorAll('.mod-root .workspace-tab-header').forEach((tab, i) => tab.classList.toggle('is-active', i === index));
+          }, selected);
+          await page.locator('.mod-root .workspace-tab-header').nth(selected).hover();
+          const tabs = await page.evaluate(() => [...document.querySelectorAll('.mod-root .workspace-tab-header')].map(tab => ({
+            color: getComputedStyle(tab.querySelector('.workspace-tab-header-inner-title')).color,
+            bottomRadius: getComputedStyle(tab).borderBottomLeftRadius,
+            active: tab.classList.contains('is-active'),
+            corner: getComputedStyle(tab, '::before').clipPath
+          })));
+          for (const tab of tabs) {
+            assert.equal(tab.color, 'rgb(16, 18, 17)');
+            if (tab.active) { assert.equal(tab.bottomRadius, '0px'); assert.notEqual(tab.corner, 'none'); }
+          }
+        }
+      }
+      const join = await page.evaluate(() => {
+        const tab = document.querySelector('.mod-root .workspace-tab-header.is-active');
+        const panel = document.querySelector('.mod-root .workspace-leaf-content');
+        return { gap: panel.getBoundingClientRect().top - tab.getBoundingClientRect().bottom,
+          tab: getComputedStyle(tab, '::before').backgroundColor, panel: getComputedStyle(panel).backgroundColor };
+      });
+      assert(Math.abs(join.gap) < 1, JSON.stringify(join));
+      assert.equal(join.tab, join.panel);
+      for (const opacity of [0, 0.35, 1]) {
+        await page.evaluate(value => document.body.style.setProperty('--ca-panel-opacity', value), String(opacity));
+        const surface = await page.evaluate(() => {
+          const s = getComputedStyle(document.querySelector('.mod-root .workspace-leaf-content'));
+          const tab = document.querySelector('.mod-root .workspace-tab-header.is-active');
+          const active = getComputedStyle(tab, '::before');
+          const corner = getComputedStyle(tab, '::after');
+          const inactive = getComputedStyle(document.querySelector('.mod-root .workspace-tab-header:not(.is-active)'));
+          return { color: s.backgroundColor, image: s.backgroundImage, blur: s.backdropFilter,
+            cornerContent: corner.content, silhouette: active.clipPath,
+            activeColor: active.backgroundColor, activeBlur: active.backdropFilter, inactiveBlur: inactive.backdropFilter };
+        });
+        assert.equal(surface.image, 'none');
+        assert.equal(surface.activeColor, surface.color);
+        assert.equal(surface.activeBlur, surface.blur);
+        assert.equal(surface.cornerContent, 'none');
+        assert(surface.silhouette.startsWith('shape('));
+        assert.equal(surface.inactiveBlur, 'none');
+        if (opacity === 0) {
+          await page.screenshot({ animations: 'disabled', path: path.join(output, `AbsolutelyGlass-zero-opacity-${mode}.png`) });
+        }
+        if (opacity === 0) assert.match(surface.color, /^rgba\(\d+, \d+, \d+, 0\)$/);
+        else if (opacity === 1) assert(surface.color.startsWith('rgb('));
+        else assert(surface.color.includes('0.35'));
+      }
+      await page.evaluate(() => document.body.style.removeProperty('--ca-panel-opacity'));
       const sidebars = await page.evaluate(() =>
         [...document.querySelectorAll('.mod-left-split .workspace-leaf-content, .mod-right-split .workspace-leaf-content')]
           .map(el => {

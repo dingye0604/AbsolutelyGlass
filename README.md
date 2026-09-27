@@ -43,6 +43,8 @@ Light and dark are tuned separately. There is also **High readability · solid m
 
 Everything else in the Style Settings panel comes from the base theme and works as before.
 
+Set **Style Settings → AbsolutelyGlass · Glass material → Panel opacity** to **0** to clear the reading surface tint completely. Set panel blur to 0 separately if desired. Native window tint and Windows Acrylic remain independent; solid mode and reduced-transparency preferences override transparency. Document tab text stays near-black, so contrast is limited on dark backgrounds.
+
 ## What you need
 
 - **Obsidian 1.13.4** or newer.

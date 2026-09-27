@@ -1,5 +1,18 @@
 # AbsolutelyGlass validation record
 
+## 1.0.5 — Connected tabs and zero panel opacity (2026-09-27)
+
+### Completed
+
+- Plugin syntax check passed. The full browser fixture using local Obsidian 1.13.7 app.css passed, including seven mocked plugin lifecycle cases and the MutationObserver regression.
+- Light and dark tab labels stay rgb(16, 18, 17) when selected, inactive, hovered, focused or unfocused. The active tab joins the reading surface with no gap.
+- The active tab and panel share background, blur and saturation at opacity 0, 0.35 and 1. The tab uses one continuous CSS shape() material layer; inactive tabs remain unblurred.
+- Baseline byte prefix preserved: 637129 bytes. Fixture screenshots inspected. Evidence: workspace .verify-out/2026-09-27-continuous-tab/.
+
+### Unverified / limits
+
+- Live Obsidian and Windows DWM composition were not verified. The installed Edge supports CSS shape(); actual Obsidian rendering remains unverified. Black text has limited contrast on dark backgrounds.
+
 **English** | [中文](./VALIDATION.zh-CN.md)
 
 Validated 2026-09-18.

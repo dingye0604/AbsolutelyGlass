@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.5
+
+- Keep document tab labels and icons near-black in every selection and focus state.
+- Restore the connected Baseline tab shape and flush reading surface. Use one continuous clipped backdrop layer to avoid square seams at the reverse corners.
+- Allow panel opacity from 0 to 1 and remove the independent editor sheen so zero clears the background. The selected tab shares the reading surface opacity, blur and saturation.
+- Acrylic and CSS blur remain independent.
+
 ## 1.0.4
 
 - Raised text contrast in the left and right sidebars and in the ribbon: near-black in light mode, white and light grey in dark mode.
