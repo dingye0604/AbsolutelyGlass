@@ -184,19 +184,19 @@ body:not(.is-mobile) .workspace-tab-header.is-active {
   background: var(--ca-control) !important;
   box-shadow: inset 0 1px 0 var(--ca-highlight), 0 2px 8px var(--ca-shadow) !important;
 }
-/* Document tab labels remain dark through selection, hover and window focus. */
+/* Document tabs follow sidebar text in both themes and all interaction states. */
 body:not(.is-mobile) .workspace .mod-root .workspace-tabs {
-  --tab-text-color: #101211;
-  --tab-text-color-active: #101211;
-  --tab-text-color-focused: #101211;
-  --tab-text-color-focused-active: #101211;
-  --tab-text-color-focused-active-current: #101211;
-  --tab-text-color-focused-highlighted: #101211;
+  --tab-text-color: var(--ca-sidebar-text);
+  --tab-text-color-active: var(--ca-sidebar-text);
+  --tab-text-color-focused: var(--ca-sidebar-text);
+  --tab-text-color-focused-active: var(--ca-sidebar-text);
+  --tab-text-color-focused-active-current: var(--ca-sidebar-text);
+  --tab-text-color-focused-highlighted: var(--ca-sidebar-text);
   --tab-background-active: rgba(var(--ca-rgb), var(--ca-panel-opacity));
 }
 body:not(.is-mobile) .workspace .mod-root .workspace-tab-header,
 body:not(.is-mobile) .workspace .mod-root .workspace-tab-header :is(.workspace-tab-header-inner-title, .workspace-tab-header-inner-icon, .workspace-tab-header-inner-close-button) {
-  color: #101211 !important;
+  color: var(--ca-sidebar-text) !important;
   opacity: 1 !important;
 }
 /* One continuous silhouette: no separate corner tiles or overlapping filters. */

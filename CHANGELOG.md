@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6
+
+- Fix dark-mode document tab labels, icons, and close buttons to use white sidebar text across selection, hover, and focus states. Light mode retains near-black text.
+
 ## 1.0.5
 
 - Keep document tab labels and icons near-black in every selection and focus state.

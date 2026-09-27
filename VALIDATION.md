@@ -1,5 +1,17 @@
 # AbsolutelyGlass validation record
 
+## 1.0.6 — Dark tab text (2026-09-28)
+
+### Completed
+
+- Full browser fixture passed with local Obsidian 1.13.7 app.css, including seven plugin mocks and MutationObserver regression.
+- Document tab labels are white in dark mode and near-black in light mode across selection, hover and focus states. Baseline prefix: 637129 bytes.
+- Evidence: .verify-out/2026-09-28-dark-tabs/.
+
+### Limits
+
+- Live Obsidian and Windows compositor were not verified.
+
 ## 1.0.5 — Connected tabs and zero panel opacity (2026-09-27)
 
 ### Completed

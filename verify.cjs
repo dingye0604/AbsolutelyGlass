@@ -132,7 +132,7 @@ const { chromium } = require(path.join(modules, 'playwright'));
             corner: getComputedStyle(tab, '::before').clipPath
           })));
           for (const tab of tabs) {
-            assert.equal(tab.color, 'rgb(16, 18, 17)');
+            assert.equal(tab.color, mode === 'dark' ? 'rgb(255, 255, 255)' : 'rgb(16, 18, 17)');
             if (tab.active) { assert.equal(tab.bottomRadius, '0px'); assert.notEqual(tab.corner, 'none'); }
           }
         }
