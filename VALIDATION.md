@@ -1,5 +1,22 @@
 # AbsolutelyGlass validation record
 
+## 1.0.7 — Collapsed sidebar controls (2026-10-01)
+
+### Completed
+
+- Rebuilt from AbsolutelyBaseline 1.0.1, preserving its 639894-byte prefix.
+- Collapsed desktop sidebar retains the native vault switcher as `<>` and the original settings icon at the bottom of the left rail. Expanding restores the existing layout.
+- `verify-collapsed-sidebar.cjs` passed 32 cases using installed Obsidian 1.13.7 CSS: both themes, light/dark, default and seven named layouts. Checks cover zero dock width, placement, click reachability with mock handlers, and expansion restoration. Inspected the collapsed screenshot.
+- Existing `verify.cjs` passed, including seven mocked plugin lifecycle cases, popout settings and MutationObserver regression.
+- Evidence: `.verify-out/collapsed-sidebar-20261001/`. Synchronized source to the test vault with `sync.ps1`.
+
+
+- Alignment follow-up: replaced font glyphs with symmetric vector chevrons and centered both controls. All 32 cases additionally assert matching horizontal centers; original regression passed again. Evidence: `.verify-out/collapsed-sidebar-alignment-20261001/`.
+
+### Not verified / limitations
+
+- Live Obsidian, actual vault-menu/settings opening, Windows composition, mobile and optional hover/hidden-ribbon combinations remain unverified.
+
 ## 1.0.6 — Dark tab text (2026-09-28)
 
 ### Completed

@@ -3448,6 +3448,79 @@ body.theme-dark {
   --accent-l: 58%;
 }
 
+/* Keep native vault/settings controls available on the collapsed desktop rail.
+   Obsidian sets display:none inline on the dock after its collapse animation. */
+body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed {
+  display: flex !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  flex: 0 0 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  transform: none !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  pointer-events: none;
+  z-index: 12;
+}
+body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed > :not(.workspace-sidedock-vault-profile) {
+  display: none !important;
+}
+body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed > .workspace-sidedock-vault-profile {
+  position: fixed !important;
+  inset: auto auto 8px 0 !important;
+  width: var(--ribbon-width) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center !important;
+  gap: 4px;
+  overflow: visible !important;
+  pointer-events: auto !important;
+  -webkit-app-region: no-drag;
+}
+body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed .workspace-drawer-vault-switcher {
+  flex: 0 0 32px !important;
+  width: 32px;
+  height: 32px;
+  padding: 0 !important;
+  justify-content: center;
+  align-items: center;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+  pointer-events: auto !important;
+  color: var(--icon-color);
+}
+body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed .workspace-drawer-vault-switcher > * {
+  display: none;
+}
+body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed .workspace-drawer-vault-switcher::before {
+  /* Symmetric vector chevrons avoid font-specific side bearings/baselines. */
+  content: "";
+  display: block;
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m8 6-6 6 6 6m8-12 6 6-6 6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed .workspace-drawer-vault-actions {
+  display: flex;
+  flex-direction: column;
+}
+body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed .workspace-drawer-vault-actions .clickable-icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* AbsolutelyGlass glass layer v1.0.5
  * Web approximation of glass, not Apple's native Liquid Glass renderer.

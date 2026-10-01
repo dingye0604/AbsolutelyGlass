@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.7
+
+- Keep the vault switcher (`<>`) and native settings icon at the bottom of the left rail when the desktop sidebar is collapsed, inherited from AbsolutelyBaseline 1.0.1.
+
 ## 1.0.6
 
 - Fix dark-mode document tab labels, icons, and close buttons to use white sidebar text across selection, hover, and focus states. Light mode retains near-black text.
