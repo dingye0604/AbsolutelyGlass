@@ -1,20 +1,10 @@
 # Changelog
 
-## 1.0.11
-
-- Link quote and fenced-code background opacity to panel opacity. Preserve light tints at zero and blend to opaque panel colours at one, including Live Preview line backgrounds. Inline code remains unchanged.
-
-## 1.0.10
-
-- Lower quote tint opacity to 16% and set reading-view blur to 110% of the shared panel radius (26.4 px), keeping the accent border and accessibility fallbacks.
-
-## 1.0.9
-
-- Give blockquotes a 78% opaque glass tint in reading and Live Preview modes. Add reading-view blur and subtle inset highlights; preserve solid and reduced-transparency fallbacks.
-
 ## 1.0.8
 
-- Remove the panel blur slider. Keep CSS blur fixed at 24 px with accessibility fallbacks; saved values from the removed control no longer affect the material.
+- Remove the separate panel blur slider and keep CSS blur fixed at 24 px.
+- Style blockquotes as tinted glass with a 16% base tint and blur at 110% of the panel radius.
+- Link quote and fenced-code background opacity to panel opacity. At zero, retain a light tint; at one, both surfaces become opaque. Inline code remains unchanged.
 
 ## 1.0.7
 
