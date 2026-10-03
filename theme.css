@@ -3532,7 +3532,7 @@ id: claudeapple
 settings:
   - id: ca-panel-opacity
     title: 面板不透明度
-    description: 0 为正文底色完全透明；磨砂由面板磨砂模糊单独控制。正文建议 0.55–0.80。
+    description: 0 为正文底色完全透明；CSS 磨砂采用固定强度。正文建议 0.55–0.80。
     type: variable-number-slider
     default: 0.64
     min: 0
@@ -3546,15 +3546,6 @@ settings:
     min: 0
     max: 0.65
     step: 0.01
-  - id: ca-blur
-    title: 面板磨砂模糊
-    description: CSS 面板模糊，不控制 Windows Acrylic 的系统模糊强度。
-    type: variable-number-slider
-    default: 24
-    min: 0
-    max: 40
-    step: 2
-    format: px
   - id: ca-radius
     title: 面板圆角
     type: variable-number-slider
@@ -3574,7 +3565,7 @@ body.theme-light, body.theme-dark {
   --claudeapple-theme: 1;
   --ca-panel-opacity: 0.64;
   --ca-window-opacity: 0.12;
-  --ca-blur: 24px;
+  --ca-material-blur: 24px;
   --ca-radius: 16px;
   --titlebar-background: transparent;
   --titlebar-background-focused: transparent;
@@ -3646,8 +3637,8 @@ body:not(.is-mobile) .workspace .workspace-leaf-content {
     rgba(var(--ca-rgb), var(--ca-panel-opacity)) !important;
   box-shadow: inset 0 1px 0 var(--ca-highlight),
     inset 0 -1px 0 var(--ca-edge), 0 8px 24px -12px var(--ca-shadow) !important;
-  backdrop-filter: blur(var(--ca-blur)) saturate(125%) !important;
-  -webkit-backdrop-filter: blur(var(--ca-blur)) saturate(125%) !important;
+  backdrop-filter: blur(var(--ca-material-blur)) saturate(125%) !important;
+  -webkit-backdrop-filter: blur(var(--ca-material-blur)) saturate(125%) !important;
   overflow: hidden;
 }
 body:not(.is-mobile) .workspace-leaf-content > .view-content,
@@ -3740,8 +3731,8 @@ body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .wor
   height: auto;
   border-radius: 0;
   background: var(--tab-background-active);
-  backdrop-filter: blur(var(--ca-blur)) saturate(125%);
-  -webkit-backdrop-filter: blur(var(--ca-blur)) saturate(125%);
+  backdrop-filter: blur(var(--ca-material-blur)) saturate(125%);
+  -webkit-backdrop-filter: blur(var(--ca-material-blur)) saturate(125%);
   box-shadow: none !important;
   clip-path: shape(from 0% 100%,
     curve to var(--tab-curve) calc(100% - var(--tab-curve)) with var(--tab-curve) 100%,
@@ -3779,7 +3770,7 @@ body:not(.is-mobile) :is(.menu, .suggestion-container, .modal, .popover, .prompt
   border: 1px solid var(--ca-edge);
   border-radius: var(--ca-radius);
   box-shadow: inset 0 1px 0 var(--ca-highlight), 0 18px 56px var(--ca-shadow);
-  backdrop-filter: blur(var(--ca-blur));
+  backdrop-filter: blur(var(--ca-material-blur));
 }
 /* Settings are a reading surface, not an additional full-window blur layer.
  * Avoid transformed/animated backdrop textures over Windows Acrylic.
@@ -3866,19 +3857,54 @@ body:not(.is-mobile) :is(input:not([type=checkbox]):not([type=range]), textarea,
   background-color: var(--ca-control);
 }
 
+/* Quotes keep a readable tinted surface while revealing the panel beneath.
+ * Live Preview uses separate line boxes: avoid per-line blur seams and double
+ * alpha where Baseline uses wide borders for quote padding. */
+body:not(.is-mobile) {
+  --ca-content-opacity: clamp(0, var(--ca-panel-opacity), 1);
+  --ca-quote-opacity: calc(0.16 + 0.84 * var(--ca-content-opacity));
+  --ca-quote-blur: calc(var(--ca-material-blur) * 1.1);
+  --blockquote-background-color: rgba(var(--ca-rgb), var(--ca-quote-opacity));
+}
+body.theme-light:not(.is-mobile) {
+  --ca-code-tint: rgba(45, 45, 43, 0.055);
+}
+body.theme-dark:not(.is-mobile) {
+  --ca-code-tint: rgba(249, 249, 247, 0.06);
+}
+/* Blend toward the panel colour, not an opaque white code surface in dark mode.
+ * Scope the token to fenced code so inline code keeps its existing contrast. */
+body:not(.is-mobile) :is(.markdown-rendered pre, .HyperMD-codeblock, .HyperMD-codeblock-bg) {
+  --code-background: color-mix(in srgb,
+    var(--ca-code-tint) calc((1 - var(--ca-content-opacity)) * 100%),
+    rgb(var(--ca-rgb)) calc(var(--ca-content-opacity) * 100%));
+  background-color: var(--code-background);
+}
+body:not(.is-mobile) .markdown-rendered blockquote {
+  background-color: var(--blockquote-background-color);
+  backdrop-filter: blur(var(--ca-quote-blur));
+  -webkit-backdrop-filter: blur(var(--ca-quote-blur));
+  box-shadow: inset 0 1px 0 var(--ca-highlight), inset 0 -1px 0 var(--ca-edge);
+}
+body:not(.is-mobile) .HyperMD-quote {
+  background-clip: padding-box;
+}
+
 /* Explicit accessibility fallback; works even without the media-query support. */
 body.ca-solid:not(.is-mobile) {
+  --ca-quote-opacity: 1;
   --ca-panel-opacity: 1;
   --ca-window-opacity: 1;
-  --ca-blur: 0px;
+  --ca-material-blur: 0px;
   --ca-ambient: var(--ca-solid-color);
   --ca-sheen: transparent;
 }
 @media (prefers-reduced-transparency: reduce) {
   body:not(.is-mobile) {
+    --ca-quote-opacity: 1 !important;
     --ca-panel-opacity: 1 !important;
     --ca-window-opacity: 1 !important;
-    --ca-blur: 0px !important;
+    --ca-material-blur: 0px !important;
     --ca-ambient: var(--ca-solid-color);
     --ca-sheen: transparent;
   }

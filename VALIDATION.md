@@ -1,5 +1,49 @@
 # AbsolutelyGlass validation record
 
+## 1.0.11 — Linked block opacity (2026-10-03)
+
+### Completed
+
+- Existing verify.cjs passed. Six targeted light/dark cases at panel opacity 0, 0.5 and 1 passed for reading quotes, fenced code and simulated editor lines. Quote alpha is 0.16 + 0.84p; code blends its existing tint toward the opaque panel colour. Evidence: .verify-out/linked-opacity-20261003/.
+
+### Limitations
+
+- Computed styles and browser fixtures only; live Obsidian, CodeMirror editing and Windows compositor unverified.
+
+## 1.0.10 — Lighter quote tint (2026-10-03)
+
+### Completed
+
+- Targeted light/dark fixture confirms 16% quote tint, 26.4 px reading-view blur and opaque solid fallback. Inspected both screenshots. Existing verify.cjs passed against local Obsidian 1.13.7 CSS.
+- Evidence: .verify-out/glass-quotes-refined-20261003/. Code blocks have no independent blur radius; quotes use 110% of the shared 24 px panel radius.
+
+### Not verified / limitations
+
+- Browser fixtures only. Live CodeMirror and Windows Acrylic are unverified; editing line boxes retain tint without per-line blur.
+
+## 1.0.9 — Glass quotes (2026-10-03)
+
+### Completed
+
+- Existing verify.cjs passed using local Obsidian 1.13.7 CSS; Baseline prefix remains 639894 bytes.
+- Targeted browser fixture confirmed 0.78 background alpha for rendered quotes and Live Preview line boxes in both modes, 24 px rendered blur, padding-box clipping and opaque solid-mode fallback. Evidence: .verify-out/glass-quotes-20261003/.
+
+### Not verified / limitations
+
+- Live Preview line boxes are a fixture, not an active CodeMirror editor. Live Obsidian and Windows Acrylic remain unverified.
+
+## 1.0.8 — Remove panel blur control (2026-10-03)
+
+### Completed
+
+- Removed the Style Settings blur slider and its README instructions. Renamed the internal blur variable so saved ca-blur values no longer affect rendering; retained fixed 24 px blur and accessibility overrides.
+- Existing verify.cjs passed against local Obsidian 1.13.7 CSS: seven plugin lifecycle mocks, light/dark panel styles, zero-opacity surfaces, settings windows and observer regression. Preserved the 639894-byte Baseline prefix.
+- Evidence: .verify-out/remove-blur-20261003/. Synchronized with sync.ps1.
+
+### Not verified / limitations
+
+- Live Obsidian settings UI and Windows Acrylic compositor were not verified; browser fixture evidence only.
+
 ## 1.0.7 — Collapsed sidebar controls (2026-10-01)
 
 ### Completed
