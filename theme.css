@@ -3509,6 +3509,30 @@ body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed .work
   background-color: currentColor;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m8 6-6 6 6 6m8-12 6 6-6 6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
 }
+/* Reserve the top header cell for the toggle, outside the ribbon action flow.
+ * Reset inherited layout offsets so extra actions cannot displace this cell. */
+body:not(.is-mobile):not(.mod-macos) .workspace-ribbon:is(.mod-left, .mod-primary) {
+  position: relative;
+  margin-top: 0 !important;
+  padding-top: var(--header-height) !important;
+}
+body:not(.is-mobile):not(.mod-macos) .workspace-ribbon:is(.mod-left, .mod-primary) > .sidebar-toggle-button {
+  position: absolute !important;
+  top: 0 !important;
+  inset-inline: 0 !important;
+  width: 100% !important;
+  height: var(--header-height) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) > .sidebar-toggle-button {
+  order: -1;
+  flex-shrink: 0;
+}
+
 body:not(.is-mobile) .workspace-split.mod-left-split.is-sidedock-collapsed .workspace-drawer-vault-actions {
   display: flex;
   flex-direction: column;

@@ -35,7 +35,7 @@ function pluginCase(name, options = {}) {
     require: name => {
       if (name === 'obsidian') return { Plugin: class {}, Notice: class { constructor(v) { notices.push(v); } } };
       if (name === 'os') return { release: () => options.os || '10.0.26200' };
-      if (name === '@electron/remote') return { getCurrentWindow: () => nativeWindow };
+      if (name === '@electron/remote') return { getCurrentWindow: () => nativeWindow, nativeTheme: options.nativeTheme };
       throw Error(name);
     }
   };
@@ -48,8 +48,9 @@ function pluginCase(name, options = {}) {
     assert.equal(notices.length, 1);
     plugin.sync(); assert.equal(notices.length, 1, 'Repeated error notice');
     if (options.fail) assert.deepEqual(calls.at(-1), ['color', '#112233']);
-  } else if (options.reduced) {
+  } else if (options.reduced || options.nativeTheme) {
     assert.equal(calls.length, 0);
+    assert(!classes.has('ca-native-glass'));
   } else {
     assert(plugin.active && classes.has('ca-native-glass'));
     const count = calls.length; plugin.sync(); assert.equal(calls.length, count);
@@ -69,6 +70,9 @@ pluginCase('API failure rolls back', { fail: true });
 pluginCase('unsupported Windows falls back', { os: '10.0.19045' });
 pluginCase('non-Windows falls back', { platform: 'darwin' });
 pluginCase('reduced transparency skips material', { reduced: true });
+pluginCase('native transparency preference skips material', { nativeTheme: { prefersReducedTransparency: true } });
+pluginCase('high contrast skips material', { nativeTheme: { shouldUseHighContrastColors: true } });
+pluginCase('forced colors skips material', { nativeTheme: { inForcedColorsMode: true } });
 
 function readAsar(file, entry) {
   const buffer = fs.readFileSync(file);
@@ -251,7 +255,8 @@ const { chromium } = require(path.join(modules, 'playwright'));
         observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
         document.body.classList.remove('ca-native-glass');
       });
-      const cleanup = [], events = {}, calls = [];
+      const cleanup = [], events = {}, calls = [], commands = {};
+      const nativeTheme = { on: (name, fn) => { events[name] = fn; }, removeListener: name => { delete events[name]; } };
       const win = { isDestroyed: () => false, getBackgroundColor: () => '#112233',
         setBackgroundColor: value => calls.push(['color', value]),
         setBackgroundMaterial: value => calls.push(['material', value]) };
@@ -259,12 +264,12 @@ const { chromium } = require(path.join(modules, 'playwright'));
         register(fn) { cleanup.push(fn); }
         registerEvent() {}
         registerDomEvent(el, name, fn) { el.addEventListener(name, fn); cleanup.push(() => el.removeEventListener(name, fn)); }
-        addCommand() {}
+        addCommand(command) { commands[command.id] = command.callback; }
       }
       const requireMock = name => {
         if (name === 'obsidian') return { Plugin, Notice: class {} };
         if (name === 'os') return { release: () => '10.0.26200' };
-        if (name === '@electron/remote') return { getCurrentWindow: () => win };
+        if (name === '@electron/remote') return { getCurrentWindow: () => win, nativeTheme };
         throw Error(name);
       };
       const module = { exports: {} };
@@ -287,21 +292,36 @@ const { chromium } = require(path.join(modules, 'playwright'));
       document.body.style.setProperty('--claudeapple-theme', '0');
       events['css-change']();
       await pause(220);
+      // Exercise the actual command while active, then system preference changes.
+      document.body.style.setProperty('--claudeapple-theme', '1');
+      events['css-change'](); await pause(220);
+      commands['retry-acrylic'](); await pause(220);
+      const afterRetry = calls.filter(call => call[1] === 'acrylic').length;
+      nativeTheme.prefersReducedTransparency = true;
+      events.updated(); await pause(220);
+      const systemFallback = !plugin.active && !document.body.classList.contains('ca-native-glass');
+      nativeTheme.prefersReducedTransparency = false;
+      events.updated(); await pause(220);
+      const systemResumed = plugin.active;
+      document.body.style.setProperty('--claudeapple-theme', '0');
+      events['css-change'](); await pause(220);
       const settled = syncs;
       await pause(220);
       const idleSyncs = syncs - settled;
       events['css-change'](); // Pending timer must be cancelled by unload.
       plugin.onunload(); cleanup.forEach(fn => fn());
       await pause(220);
-      return { oldCallbacks, syncs, idleSyncs, afterUnload: syncs - settled,
+      return { afterRetry, systemFallback, systemResumed, listenerRemoved: !events.updated, oldCallbacks, syncs, idleSyncs, afterUnload: syncs - settled,
         acrylicCalls: calls.filter(call => call[1] === 'acrylic').length,
         restoreCalls: calls.filter(call => call[1] === 'auto').length,
         markerRemains: document.body.classList.contains('ca-native-glass') };
     }, pluginSource);
     assert.equal(regression.oldCallbacks, 24);
-    assert.equal(regression.syncs, 14);
+    assert.equal(regression.syncs, 19);
+    assert.equal(regression.afterRetry, 9);
+    assert(regression.systemFallback && regression.systemResumed && regression.listenerRemoved);
     assert.equal(regression.idleSyncs, 0); assert.equal(regression.afterUnload, 0);
-    assert.equal(regression.acrylicCalls, 7); assert.equal(regression.restoreCalls, 7);
+    assert.equal(regression.acrylicCalls, 10); assert.equal(regression.restoreCalls, 10);
     assert.equal(regression.markerRemains, false);
     await regressionPage.close();
     const report = { sourceBytesPreserved: base.length, pluginMockCases: cases, browserFixture: results, nativeBackground, solid,

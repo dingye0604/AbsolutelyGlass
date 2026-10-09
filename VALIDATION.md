@@ -1,5 +1,21 @@
 # AbsolutelyGlass validation record
 
+## 1.0.9 — Pinned sidebar toggle and Acrylic recovery (2026-10-09)
+
+### Completed
+
+- Rebuilt from AbsolutelyBaseline 1.0.2, preserving its 640745-byte prefix. Non-macOS desktop ribbon reserves a header cell and anchors the toggle above plugin actions.
+- Installed Obsidian 1.14.4 app.js creates a mod-primary ribbon without mod-left. Selectors support both new and legacy classes. Earlier fixtures incorrectly combined these classes; those results did not validate the new structure.
+- Corrected verify-sidebar-toggle.cjs reproduces the old displacement and passes 256 cases with each class independently, across both themes, light/dark, eight layouts, expanded/collapsed and insertion orders. Checks include visible icon bounds, click reachability and unchanged coordinates after adding actions and spacing. Before/after fixture screenshots inspected.
+- Full verify.cjs passed ten plugin lifecycle mocks, settings/popout fixtures and preference/retry regressions. Existing collapsed-controls fixture passed 32 cases during this change.
+- Acrylic 1.0.2 fixes reapply returning early while active and observes native transparency/high-contrast preferences when supported. User confirmed energy saver caused the other device's opaque Acrylic.
+- Evidence: .verify-out/sidebar-primary-20261009/ and .verify-out/sidebar-pinned-top-20261009/collapsed/. Source synchronized to local test vault.
+
+### Not verified / limitations
+
+- Browser fixtures and mocked Electron interfaces only. Live Obsidian positioning and Windows DWM composition were not verified by the agent. API success does not guarantee desktop transparency.
+- Git push is separate from publishing downloadable GitHub Release assets.
+
 ## 1.0.8 — Glass controls and linked block opacity (2026-10-03)
 
 ### Completed
