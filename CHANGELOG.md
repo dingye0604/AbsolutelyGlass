@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.10
+
+- Add pointer glow with adjustable intensity, using companion 1.0.3.
+- Respect reduced motion/transparency, clean up pointer effects on disable/unload, and retain existing native transparency behavior.
+
 ## 1.0.8
 
 - Remove the separate panel blur slider and keep CSS blur fixed at 24 px.

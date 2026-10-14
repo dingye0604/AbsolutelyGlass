@@ -1,5 +1,51 @@
 # AbsolutelyGlass validation record
 
+## 1.0.10 — Dithered circular glow (2026-10-14)
+
+- Replaced the low-alpha CSS gradient/blur with an embedded 320px PNG using a Gaussian falloff and deterministic alpha dithering. Strength controls layer opacity; no network assets or new dependencies.
+- Full vault verification passed against installed Obsidian 1.14.4 CSS, including intensity and pointer lifecycle. Light/dark screenshots inspected: `.verify-out/smooth-glow-20261014/`.
+- Browser fixtures only; live Obsidian, display scaling and actual monitor banding remain unverified. Reload theme CSS to apply.
+
+## 1.0.10 — Circular soft glow (2026-10-14)
+
+- Changed the reflection back to a centered 320px circle at the user's request, retaining reduced brightness and 18px soft edges.
+- Full vault verification passed, including light/dark pointer positioning and lifecycle checks. Evidence: `.verify-out/round-glow-20261014/`. Browser fixtures only; live Obsidian remains unverified.
+
+## 1.0.10 — Soft pointer reflection adjustment (2026-10-14)
+
+- Replaced the circular glow with two offset flattened gradients, lower peak brightness and an 18px soft edge. No trailing or pulsing animation added; intensity setting preserved.
+- Full vault `verify.cjs` passed with installed Obsidian 1.14.4 CSS; light/dark fixture screenshots inspected. Evidence: `.verify-out/soft-reflection-20261014-verified/`. Baseline prefix remains 640745 bytes.
+- Live Obsidian / Windows composition remains unverified. CSS-only change; reload the theme to apply.
+
+## 1.0.10 + Acrylic 1.0.3 — Final scope: pointer glow only (2026-10-14)
+
+### Completed
+
+- Removed the unfocused background option, its CSS overrides and plugin policy at the user's request. Pointer glow and its blur/leave cleanup remain. The earlier focus-policy record below describes a superseded local implementation.
+- Syntax check and full vault `verify.cjs` passed against installed Obsidian 1.14.4 CSS: ten native API mocks, light/dark glow, blur hiding, settings/popout and lifecycle regressions. Baseline prefix remains 640745 bytes.
+- Synchronized through `sync.ps1` after backing up vault copies. Evidence: `.verify-out/remove-focus-option-20261014/validation.json`.
+
+### Not verified / limitations
+
+- Live Obsidian and Windows composition remain unverified. Restart Obsidian to load updated plugin code. No push or release.
+
+## 1.0.10 + Acrylic 1.0.3 — Focus policy and pointer glow (2026-10-14)
+
+### Completed
+
+- `node --check absolutely-glass-acrylic/main.js` passed. Built and synchronized with `sync.ps1`; the 640745-byte baseline prefix is preserved.
+- Vault theme/plugin copies were backed up in `.backup/focus-glow-20261014-110817/` before the first synchronization.
+- Vault `verify.cjs` passed using the existing external Playwright runtime and installed Obsidian 1.14.4 ASAR. All ten native API lifecycle mocks and existing settings/popout/MutationObserver regressions passed.
+- New real DOM/browser checks passed in light/dark: default blur retains the material request; opt-in blur restores native background and draws a solid CSS background; focus resumes Acrylic. Pointer position, click-through hit testing, intensity, pointer leave and toggle removal passed.
+- Reduced motion, solid mode, theme switch, print hiding and unload with a pending animation frame passed. Light/dark glow fixture screenshots inspected.
+- Evidence: `.verify-out/focus-glow-20261014-final/validation.json` and `AbsolutelyGlass-glow-{dark,light}.png` in that directory. Git whitespace checks passed.
+
+### Not verified / limitations
+
+- Browser fixtures use mocked Electron APIs and synthetic focus events, not live Obsidian. Installed ASAR was checked, but the running app version and Windows/DWM inactive Acrylic composition were not verified.
+- Retaining a transparency request cannot force Windows to render inactive Acrylic. Effects cover the main window only; plugin updates require a full application restart.
+- No commit, push or release was performed.
+
 ## 1.0.9 — Pinned sidebar toggle and Acrylic recovery (2026-10-09)
 
 ### Completed

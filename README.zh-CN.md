@@ -81,3 +81,12 @@ AbsolutelyGlass 是独立的社区主题，**与 Anthropic 无隶属、赞助或
 ---
 
 想从源码构建，或想知道到底验证了哪些、没验证哪些？见 [DEVELOPMENT.md](./DEVELOPMENT.md) 与 [VALIDATION.zh-CN.md](./VALIDATION.zh-CN.md)。
+
+## 鼠标光晕
+
+主题 1.0.10 与配套插件 1.0.3 新增以下 Style Settings → AbsolutelyGlass · 玻璃材质选项，均需要启用配套插件，仅作用于主窗口：
+
+- **鼠标光晕**：默认关闭，开启后鼠标附近出现柔和暖色光晕，不拦截点击或选择。强度默认 0.10，可在 0–0.25 调节。
+- 光晕在窗口失焦、指针离开、不透明模式、减少动态效果或减少透明效果下隐藏，不在打印中出现。
+
+更新插件后需完全退出并重启 Obsidian。

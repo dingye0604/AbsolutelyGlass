@@ -81,3 +81,12 @@ AbsolutelyGlass is an independent community theme. It is **not affiliated with, 
 ---
 
 Building from source, or want to know exactly what has and hasn't been tested? See [DEVELOPMENT.md](./DEVELOPMENT.md) and [VALIDATION.md](./VALIDATION.md).
+
+## Pointer glow
+
+Theme 1.0.10 and companion 1.0.3 add main-window options in Style Settings → AbsolutelyGlass. The glow requires the companion:
+
+- **Pointer glow** (鼠标光晕): off by default. A subtle warm light follows the mouse without intercepting clicks or selection. Intensity defaults to 0.10, adjustable from 0 to 0.25.
+- Hidden on blur, pointer leave, solid mode, reduced motion/transparency, and print.
+
+Fully quit and restart Obsidian after updating the companion.

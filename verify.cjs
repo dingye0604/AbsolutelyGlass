@@ -190,6 +190,109 @@ const { chromium } = require(path.join(modules, 'playwright'));
       }
       results.push({ mode, ...result });
     }
+    // Exercise the actual companion code with real DOM events and theme CSS.
+    await page.evaluate(source => {
+      const cleanup = [];
+      const win = { isDestroyed: () => false, getBackgroundColor: () => '#112233',
+        setBackgroundColor() {}, setBackgroundMaterial() {} };
+      class Plugin {
+        register(fn) { cleanup.push(fn); }
+        registerEvent() {}
+        registerDomEvent(el, name, fn) { el.addEventListener(name, fn); cleanup.push(() => el.removeEventListener(name, fn)); }
+        addCommand() {}
+      }
+      const module = { exports: {} };
+      const requireMock = name => {
+        if (name === 'obsidian') return { Plugin, Notice: class {} };
+        if (name === 'os') return { release: () => '10.0.26200' };
+        if (name === '@electron/remote') return { getCurrentWindow: () => win };
+        throw Error(name);
+      };
+      new Function('require', 'module', 'process', source)(requireMock, module, { platform: 'win32' });
+      const plugin = new module.exports();
+      plugin.app = { workspace: { on() {}, onLayoutReady: fn => fn() } };
+      plugin.onload();
+      window.effectsPlugin = plugin;
+      window.effectsCleanup = cleanup;
+      window.dispatchEvent(new Event('focus'));
+    }, pluginSource);
+    for (const mode of ['dark', 'light']) {
+      await page.evaluate(mode => {
+        document.body.classList.remove('theme-light', 'theme-dark');
+        document.body.classList.add(`theme-${mode}`, 'ca-pointer-glow');
+      }, mode);
+      await page.waitForTimeout(220);
+      await page.mouse.move(690, 390);
+      await page.waitForTimeout(220);
+      const glow = await page.evaluate(() => {
+        const el = document.querySelector('.ca-pointer-glow-layer');
+        const style = getComputedStyle(el);
+        return { count: document.querySelectorAll('.ca-pointer-glow-layer').length,
+          visible: style.opacity, pointerEvents: style.pointerEvents,
+          x: el.getBoundingClientRect().x, y: el.getBoundingClientRect().y,
+          aspect: el.getBoundingClientRect().width / el.getBoundingClientRect().height,
+          hit: document.elementFromPoint(690, 390) === el, background: style.backgroundImage };
+      });
+      assert.equal(glow.count, 1); assert.equal(glow.visible, '0.1');
+      assert.equal(glow.pointerEvents, 'none'); assert.equal(glow.hit, false);
+      assert.equal(glow.x, 530); assert.equal(glow.y, 230);
+      assert.equal(glow.aspect, 1, 'Reflection should be circular');
+      await page.screenshot({ path: path.join(output, `AbsolutelyGlass-glow-${mode}.png`) });
+      await page.evaluate(() => document.body.style.setProperty('--ca-glow-opacity', '0.20'));
+      await page.waitForTimeout(220);
+      assert.equal(await page.locator('.ca-pointer-glow-layer').evaluate(el => getComputedStyle(el).opacity), '0.2');
+      await page.evaluate(() => {
+        document.body.style.removeProperty('--ca-glow-opacity');
+        window.dispatchEvent(new Event('blur'));
+      });
+      assert(await page.evaluate(() => window.effectsPlugin.active), 'Default retains Acrylic request on blur');
+      assert.equal(await page.locator('.ca-pointer-glow-layer').evaluate(el => el.classList.contains('is-visible')), false);
+      await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+      assert(await page.evaluate(() => window.effectsPlugin.active));
+      await page.evaluate(() => document.documentElement.dispatchEvent(new PointerEvent('pointerleave')));
+      assert.equal(await page.locator('.ca-pointer-glow-layer').evaluate(el => el.classList.contains('is-visible')), false);
+      await page.evaluate(() => document.body.classList.remove('ca-pointer-glow'));
+      await page.waitForTimeout(220);
+      assert.equal(await page.locator('.ca-pointer-glow-layer').count(), 0);
+    }
+    await page.evaluate(() => document.body.classList.add('ca-pointer-glow'));
+    await page.waitForTimeout(220);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.waitForTimeout(220);
+    assert.equal(await page.locator('.ca-pointer-glow-layer').count(), 0);
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await page.waitForTimeout(220);
+    assert.equal(await page.locator('.ca-pointer-glow-layer').count(), 1);
+    await page.evaluate(() => {
+      document.body.style.setProperty('--claudeapple-theme', '0');
+      window.effectsPlugin.sync();
+    });
+    assert.equal(await page.locator('.ca-pointer-glow-layer').count(), 0);
+    await page.evaluate(() => {
+      document.body.style.removeProperty('--claudeapple-theme');
+      window.effectsPlugin.sync();
+    });
+    assert.equal(await page.locator('.ca-pointer-glow-layer').count(), 1);
+    await page.emulateMedia({ media: 'print' });
+    assert.equal(await page.locator('.ca-pointer-glow-layer').evaluate(el => getComputedStyle(el).display), 'none');
+    await page.emulateMedia({ media: 'screen' });
+    await page.evaluate(() => document.body.classList.add('ca-solid'));
+    await page.waitForTimeout(220);
+    assert.equal(await page.locator('.ca-pointer-glow-layer').count(), 0);
+    await page.evaluate(() => {
+      document.body.classList.remove('ca-solid');
+      window.effectsPlugin.sync();
+      // Queue a movement, then unload before its animation frame executes.
+      document.dispatchEvent(new PointerEvent('pointermove', { pointerType: 'mouse', clientX: 700, clientY: 400 }));
+      window.effectsPlugin.onunload();
+      window.effectsCleanup.forEach(fn => fn());
+      document.body.classList.remove('ca-pointer-glow');
+    });
+    await page.waitForTimeout(220);
+    assert.equal(await page.locator('.ca-pointer-glow-layer').count(), 0);
+    const effects = { blurHidesGlow: true, pointerTracking: 'passed in dark/light',
+      clickThrough: true, intensity: true, leaveHides: true, reducedMotion: true,
+      themeSwitch: true, printHidden: true, solidMode: true, unloadCancelsFrame: true };
     await page.evaluate(() => document.body.classList.add('ca-native-glass'));
     const nativeBackground = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
     assert(nativeBackground.includes('0.12'));
@@ -325,7 +428,7 @@ const { chromium } = require(path.join(modules, 'playwright'));
     assert.equal(regression.markerRemains, false);
     await regressionPage.close();
     const report = { sourceBytesPreserved: base.length, pluginMockCases: cases, browserFixture: results, nativeBackground, solid,
-      modal, popoutResults, appCssSource: asarPath, regression,
+      modal, popoutResults, appCssSource: asarPath, regression, effects,
       limitation: 'Browser fixture and mocked lifecycle only; Windows compositor and live Obsidian unverified.' };
     fs.writeFileSync(path.join(output, 'validation.json'), JSON.stringify(report, null, 2));
     console.log(JSON.stringify(report, null, 2));
